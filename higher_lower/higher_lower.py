@@ -37,8 +37,9 @@ def compare(guess):
 
 print(logo)
 
+person_a = get_person()
+
 while not game_is_over:
-    person_a = get_person()
     comparisons['a'] = person_a['follower_count']
     person_a_string = make_person_string(person_a, 'A')
     print(person_a_string)
@@ -50,12 +51,13 @@ while not game_is_over:
     person_a_string = make_person_string(person_b, 'B')
     print(person_a_string)
 
-    guess = input("Who has more followers? Type 'a' or 'b': ")
+    guess = input("Who has more followers? Type 'a' or 'b': \n")
     player_won = compare(guess)
     if player_won:
         score += 1
         print(f'You got it right! Score: {score}\n')
-        
+        if guess == 'b':
+            person_a = person_b
     else:
         game_is_over = True
         print(f'You got it wrong. Your got {score} right.\n')
