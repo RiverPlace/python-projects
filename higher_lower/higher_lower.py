@@ -12,3 +12,50 @@
     - score is displayed
 """
 
+from art import logo, vs
+from game_data import data
+import random
+
+comparisons = {
+    'a': {},
+    'b': {},
+}
+score = 0
+game_is_over = False
+
+def get_person():
+    return random.choice(data)
+
+def make_person_string(person, key):
+    return f'Compare {key.title()}: {person['name']}, a {person['description']}, from {person['country']}.'
+
+def compare(guess):
+    highest = max(comparisons, key=comparisons.get)
+    
+    if highest == guess:
+        return True
+
+print(logo)
+
+while not game_is_over:
+    person_a = get_person()
+    comparisons['a'] = person_a['follower_count']
+    person_a_string = make_person_string(person_a, 'A')
+    print(person_a_string)
+
+    print(vs)
+
+    person_b = get_person()
+    comparisons['b'] = person_b['follower_count']
+    person_a_string = make_person_string(person_b, 'B')
+    print(person_a_string)
+
+    guess = input("Who has more followers? Type 'a' or 'b': ")
+    player_won = compare(guess)
+    if player_won:
+        score += 1
+        print(f'You got it right! Score: {score}\n')
+        
+    else:
+        game_is_over = True
+        print(f'You got it wrong. Your got {score} right.\n')
